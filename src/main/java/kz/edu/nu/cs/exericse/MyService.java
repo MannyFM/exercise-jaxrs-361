@@ -18,7 +18,7 @@ public class MyService {
     @GET
     public Response getItems() {
         Gson gson = new Gson();
-        String json = gson.toJson(entries);
+        String json = gson.toJson(entries.keySet());
         return Response.ok(json).build();
     }
 
@@ -33,9 +33,9 @@ public class MyService {
     @GET
     @Path("{key: \\w+}")
     public Response getById(@PathParam("key") String key) {
-        String r = "Requested for key \"" + key + "\"";
         if (!entries.containsKey(key))
             return Response.status(Status.NOT_FOUND).build();
+        String r = entries.get(key);
         return Response.ok(r).build();
     }
 
